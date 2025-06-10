@@ -1,0 +1,6 @@
+Flask
+python-docx
+pdfplumber
+spacy
+language-tool-python
+fpdf
