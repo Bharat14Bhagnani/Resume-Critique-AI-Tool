@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Resume Improvement Tool</title>
+    <style>
+      body {
+        background-color: #fffbea; /* Vanilla/creme background */
+        font-family: Arial, sans-serif;
+        color: #cf3a24; /* Sunset red font */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px;
+        text-align: center;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin-bottom: 20px;
+      }
+
+      form {
+        margin-bottom: 30px;
+      }
+
+      input[type="file"] {
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        margin-right: 10px;
+      }
+
+      button {
+        background-color: #add8f7; /* Light blue */
+        color: #1b1b1b; /* Navy black */
+        border: none;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      button:hover {
+        background-color: #92cdea;
+      }
+
+      #resume-preview {
+        border: 1px solid #ccc;
+        padding: 15px;
+        min-height: 200px;
+        white-space: pre-wrap;
+        background-color: #f9f9f9;
+        margin-top: 20px;
+        font-family: monospace;
+        width: 80%;
+        max-width: 800px;
+        border-radius: 10px;
+      }
+
+      .highlight {
+        background-color: #ffcccc;
+        border-bottom: 2px solid red;
+        font-weight: bold;
+      }
+
+      ul {
+        margin-top: 0;
+        list-style-position: inside;
+        padding-left: 0;
+      }
+
+      a {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        background-color: #add8f7;
+        color: #1b1b1b;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-weight: bold;
+      }
+
+      a:hover {
+        background-color: #92cdea;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Upload Your Resume</h1>
+    <form method="post" enctype="multipart/form-data">
+      <input type="file" name="resume" accept=".pdf,.docx,.txt" required />
+      <button type="submit">Upload & Improve</button>
+    </form>
+
+    {% if resume_preview %}
+    <h2>Resume Feedback Preview:</h2>
+    <div id="resume-preview">{{ resume_preview|safe }}</div>
+    <a href="{{ url_for('download_file', filename=filename) }}" download>
+      Download Improved Resume (PDF)
+    </a>
+    {% endif %} {% if grammar_issues %}
+    <h3>Grammar Issues Found:</h3>
+    <ul>
+      {% for issue in grammar_issues %}
+      <li>{{ issue }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% if structure_feedback %}
+    <h3>Structure Suggestions:</h3>
+    <ul>
+      {% for tip in structure_feedback %}
+      <li>{{ tip }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </body>
+</html>
