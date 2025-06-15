@@ -132,4 +132,5 @@ def download_file(filename):
 
 if __name__ == "__main__":
     print("🚀 Running Flask app...")
-    app.run(debug=True)
+    app.run(debug=False, use_reloader=False)
+
